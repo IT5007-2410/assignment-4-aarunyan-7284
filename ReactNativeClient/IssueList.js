@@ -23,7 +23,7 @@ import {
   async function graphQLFetch(query, variables = {}) {
     try {
         /****** Q4: Start Coding here. State the correct IP/port******/
-        const response = await fetch('http://192.168.1.81:3000/graphql', {
+        const response = await fetch('http://10.249.241.11:3000/graphql', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json'},
         body: JSON.stringify({ query, variables })
@@ -120,7 +120,7 @@ function IssueRow(props) {
       super();
       this.handleSubmit = this.handleSubmit.bind(this);
       /****** Q3: Start Coding here. Create State to hold inputs******/
-      this.state = { IssueInputs : {title: '', status: '', owner: '', effort: '',  due: '' }};
+      this.state = { IssueInputs : {title: '', status: '', owner: undefined, effort: undefined,  due: undefined }};
       this.handleUpdate = this.handleUpdate.bind(this);
       /****** Q3: Code Ends here. ******/
     }
@@ -188,11 +188,13 @@ function IssueRow(props) {
     handleSubmit() {
       /****** Q3: Start Coding here. Create an issue from state variables and call createIssue. Also, clear input field in front-end******/
       console.log("IssueInputs:", this.state.IssueInputs);
-      const query = "mutation myissueAdd($title:String! , $status:StatusType , $owner: String, $effort:Int, $due: GraphQLDate )" +
+      const query = "mutation myissueAdd($title:String! , $status:StatusType! , $owner: String, $effort:Int, $due: GraphQLDate )" +
                     "{issueAdd(issue: {title: $title, status:$status, owner:$owner, effort:$effort, due:$due})" +
                     "{id title status owner created effort due}}";
       const data = graphQLFetch(query, {title: this.state.IssueInputs.title, status: this.state.IssueInputs.status, owner: this.state.IssueInputs.owner, effort: this.state.IssueInputs.effort, due: this.state.IssueInputs.due});
-      // this.setState({ IssueInputs: {title: '', status: '', owner: '', effort: '',  due: '' }});
+      // console.log("Data:", data);
+      // if (data._k != null) {
+      //   this.setState({ IssueInputs: {title: undefined, status: undefined, owner: undefined, effort: undefined,  due: undefined }});}
       // issueAdd(issue: IssueInputs!): Issue!
       /****** Q3: Code Ends here. ******/
     }
