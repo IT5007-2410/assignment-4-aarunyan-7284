@@ -120,7 +120,7 @@ function IssueRow(props) {
       super();
       this.handleSubmit = this.handleSubmit.bind(this);
       /****** Q3: Start Coding here. Create State to hold inputs******/
-      this.state = { IssueInputs : {title: '', status: '', owner: undefined, effort: undefined,  due: undefined }};
+      this.state = { IssueInputs : {title: undefined, status: undefined, owner: undefined, effort: undefined,  due: undefined }};
       this.handleUpdate = this.handleUpdate.bind(this);
       /****** Q3: Code Ends here. ******/
     }
@@ -162,6 +162,7 @@ function IssueRow(props) {
       }
       else if(field === "effort")
       {
+        input==''? input=undefined : input=input;
         this.setState({ IssueInputs: {
           title: this.state.IssueInputs.title, 
           status: this.state.IssueInputs.status, 
@@ -173,6 +174,7 @@ function IssueRow(props) {
       }
       else if(field === "due")
       {
+        input==''? input=undefined : input=input;
         this.setState({ IssueInputs: {
           title: this.state.IssueInputs.title, 
           status: this.state.IssueInputs.status, 
